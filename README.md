@@ -38,8 +38,8 @@
 ### 4.1 条件查询
 ```
 QueryWrapperBuilder builder = new QueryWrapperBuilder();// new一个建造着对象
-builder.eq("age", "23");                                // age = 23
-builder.like("李", Arrays.asList("name", "note"));      // name like "%李%" or note like "%李%"
+builder.eq("age", "23");                                // age = 23，可以有多个eq
+builder.like("李", Arrays.asList("name", "note"));      // name like "%李%" or note like "%李%"，可以有多个like
 builder.asc("age");                                     // order by age asc,name desc
 builder.desc("name");
 builder.page(0,10);                                     // limit 0, 10
@@ -49,3 +49,23 @@ Integer total = userDAO.countByCondition(wrapper);      // 查询总数，page�
 ```
 以上代码等同于  
 `select * from user where age = 23 and (name like "%李%" or note like "%李%") order by age asc, name desc limit 0, 10`
+
+### 4.2 查询数量
+```
+QueryWrapperBuilder builder = new QueryWrapperBuilder();// new一个建造着对象
+builder.eq("age", "23");                                // age = 23
+builder.like("李", Arrays.asList("name", "note"));      // name like "%李%" or note like "%李%"
+QueryWrapper wrapper = builder.build();
+Integer total = userDAO.countByCondition(wrapper);      // 查询总数
+```
+以上代码等同于  
+`select count(*) from user where age = 23 and (name like "%李%" or note like "%李%")`
+
+### 4.3 新增，批量新增
+略
+
+### 4.4 更新，批量更新
+略
+
+### 4.5 删除，批量删除
+略
