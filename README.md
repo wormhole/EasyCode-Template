@@ -1,5 +1,12 @@
 # IDEA插件Easy Code模板
 
+[![downloads](https://img.shields.io/github/downloads/wormhole/EasyCode-Template/total.svg)](https://github.com/wormhole/EasyCode-Template/releases)
+[![forks](https://img.shields.io/github/forks/wormhole/EasyCode-Template.svg)](https://github.com/stdutil/EasyCode-Template/network/members)
+[![stars](https://img.shields.io/github/stars/wormhole/EasyCode-Template.svg)](https://github.com/stdutil/EasyCode-Template/stargazers) 
+[![repo size](https://img.shields.io/github/repo-size/wormhole/EasyCode-Template.svg)](https://github.com/wormhole/EasyCode-Template/archive/master.zip)
+[![release](https://img.shields.io/github/release/wormhole/EasyCode-Template.svg)](https://github.com/wormhole/EasyCode-Template/releases)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wormhole/EasyCode-Template/blob/dev/LICENSE)
+
 ## 一、环境准备
 ### 1.1 安装IDEA
 步骤略
