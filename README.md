@@ -45,7 +45,6 @@ builder.desc("name");
 builder.page(0,10);                                     // limit 0, 10
 QueryWrapper wrapper = builder.build();
 List<User> user = userDAO.selectByCondition(wrapper);
-Integer total = userDAO.countByCondition(wrapper);      // 查询总数，page分页参数limit 0, 10将无效
 ```
 以上代码等同于  
 `select * from user where age = 23 and (name like "%李%" or note like "%李%") order by age asc, name desc limit 0, 10`
