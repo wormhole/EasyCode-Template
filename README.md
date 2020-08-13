@@ -6,16 +6,16 @@
 ### 1.2 安装Easy Code插件
 * 打开`File->Settings->Plugins`，搜索`Easy Code`
 * 点击`install`即可
-* 如下图所示
+* 如下图所示  
 ![install](img/install.png)
 
 ## 二、导入模板文件
 ### 2.1 新建模板
 * 打开`File->Settings->Other Settings->Easy Code->Template Setting`
-* 点击`+`号，新建`Group Name`，名称随便
+* 点击`+`号，新建`Group Name`，名称随便  
 ![group](img/group.png)
 * 将工程中`template`目录下的模板文件依此添加到`Group Name`下的模板文件当中
-* 将工程中`code`目录下的工具代码放置到自己的项目里，注意此步骤需要同步修改模板文件`DAO.java`中`QueryWrapper`类的包名
+* 将工程中`code`目录下的工具代码放置到自己的项目里，注意此步骤需要同步修改模板文件`DAO.java`中`QueryWrapper`类的包名  
 ![package](img/package.png)
 
 ## 三、如何使用
@@ -23,9 +23,9 @@
 步骤略
 
 ### 3.2 生成代码
-* 在`database`工具中找到需要生成代码的表，右键`EasyCode->Generate Code`
+* 在`database`工具中找到需要生成代码的表，右键`EasyCode->Generate Code`  
 ![database](img/database.png)
-* 选择`Package`和`Path`，勾选`All`，点击`OK`即可
+* 选择`Package`和`Path`，勾选`All`，点击`OK`即可  
 ![setting](img/setting.png)
 
 ## 四、用例
