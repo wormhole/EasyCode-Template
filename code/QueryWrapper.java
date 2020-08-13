@@ -58,72 +58,97 @@ public class QueryWrapper {
 
         /**
          * 添加字段eq条件
-         *
-         * @param column 字段名
-         * @param value  值
-         * @return 返回建造者对象
+         * 
+         * @param condition 条件为真时才添加eq条件
+         * @param column    字段名
+         * @param value     值
+         * @return          返回建造者对象
          */
-        public synchronized QueryWrapperBuilder eq(String column, Object value) {
-            assert column != null;
-            eqWrapper.put(column, value);
+        public synchronized QueryWrapperBuilder eq(Boolean condition, String column, Object value) {
+            if (condition) {
+                eqWrapper.put(column, value);
+            }
             return this;
         }
 
         /**
          * 添加模糊查询条件
          *
-         * @param key     关键字
-         * @param columns 字段
-         * @return 返回建造者对象
+         * @param condition 条件为真时才添加like条件
+         * @param key       关键字
+         * @param columns   字段
+         * @return          返回建造者对象
          */
-        public synchronized QueryWrapperBuilder like(String key, List<String> columns) {
-            assert key != null && columns != null && columns.size() > 0;
-            keyWrapper.put(key, columns);
+        public synchronized QueryWrapperBuilder like(Boolean condition, String key, List<String> columns) {
+            if (condition) {
+                keyWrapper.put(key, columns);
+            }
             return this;
         }
 
         /**
          * 分页条件
          *
-         * @param offset 偏移量
-         * @param limit  每页大小
-         * @return 返回建造者对象
+         * @param condition 条件为真时才添加page参数
+         * @param offset    偏移量
+         * @param limit     每页大小
+         * @return          返回建造者对象
          */
-        public synchronized QueryWrapperBuilder page(Integer offset, Integer limit) {
-            assert offset >= 0 && limit > 1;
-            this.offset = offset;
-            this.limit = limit;
+        public synchronized QueryWrapperBuilder page(Boolean condition, Integer offset, Integer limit) {
+            if (condition) {
+                this.offset = offset;
+                this.limit = limit;
+            }
             return this;
         }
 
         /**
          * 顺序排序
          *
-         * @param column 排序字段
-         * @return 返回建造者对象
+         * @param condition 条件为真时才添加排序参数
+         * @param column    排序字段
+         * @return          返回建造者对象
          */
-        public synchronized QueryWrapperBuilder asc(String column) {
-            assert column != null;
-            sortWrapper.put(column, "asc");
+        public synchronized QueryWrapperBuilder asc(Boolean condition, String column) {
+            if (condition) {
+                sortWrapper.put(column, "asc");
+            }
             return this;
         }
 
         /**
          * 逆序排序
          *
-         * @param column 排序字段
-         * @return 返回建造者对象
+         * @param condition 条件为真时才添加排序参数
+         * @param column    排序字段
+         * @return          返回建造者对象
          */
-        public synchronized QueryWrapperBuilder desc(String column) {
-            assert column != null;
-            sortWrapper.put(column, "desc");
+        public synchronized QueryWrapperBuilder desc(Boolean condition, String column) {
+            if (condition) {
+                sortWrapper.put(column, "desc");
+            }
             return this;
         }
 
         /**
-         * 构建ConditionRequest对象
+         * 自定义排序
          *
-         * @return 返回ConditionRequest对象
+         * @param condition 条件为真时才添加排序参数
+         * @param column    排序字段
+         * @param order     排序方式
+         * @return          返回建造者对象
+         */
+        public synchronized QueryWrapperBuilder sort(Boolean condition, String column, String order) {
+            if (condition) {
+                sortWrapper.put(column, order);
+            }
+            return this;
+        }
+
+        /**
+         * 构建QueryWrapper对象
+         *
+         * @return 返回QueryWrapper对象
          */
         public QueryWrapper build() {
             return new QueryWrapper(limit, offset, sortWrapper, eqWrapper, keyWrapper);
