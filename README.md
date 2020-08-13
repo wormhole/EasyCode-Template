@@ -31,21 +31,15 @@
 ## 四、用例
 ### 4.1 条件查询
 ```
-// new一个建造着对象
-QueryWrapperBuilder builder = new QueryWrapperBuilder();
-// age = 23
-builder.eq("age", "23");
-// name like "%李%" or note like "%李%"
-builder.like("李", Arrays.asList("name", "note"));
-// order by age asc,name desc
-builder.asc("age");
+QueryWrapperBuilder builder = new QueryWrapperBuilder();// new一个建造着对象
+builder.eq("age", "23");                                // age = 23
+builder.like("李", Arrays.asList("name", "note"));      // name like "%李%" or note like "%李%"
+builder.asc("age");                                     // order by age asc,name desc
 builder.desc("name");
-// limit 0, 10
-builder.page(0,10);
+builder.page(0,10);                                     // limit 0, 10
 QueryWrapper wrapper = builder.build();
 List<User> user = userDAO.selectByCondition(wrapper);
-// 查询总数，page分页参数limit 0, 10将无效
-Integer total = userDAO.countByCondition(wrapper);
+Integer total = userDAO.countByCondition(wrapper);      // 查询总数，page分页参数limit 0, 10将无效
 ```
 以上代码等同于  
 `select * from user where age = 23 and (name like "%李%" or note like "%李%") order by age asc, name desc limit 0, 10`
