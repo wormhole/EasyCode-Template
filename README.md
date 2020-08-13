@@ -24,7 +24,6 @@
 
 ### 3.2 生成代码
 * 在`database`工具中找到需要生成代码的表，右键`EasyCode->Generate Code`  
-![database](img/database.png)
 * 选择`Package`和`Path`，勾选`All`，点击`OK`即可  
 ![setting](img/setting.png)
 
