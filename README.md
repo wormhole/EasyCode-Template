@@ -47,3 +47,5 @@ List<User> user = userDAO.selectByCondition(wrapper);
 // 查询总数，page分页参数limit 0, 10将无效
 Integer total = userDAO.countByCondition(wrapper);
 ```
+以上代码等同于  
+`select * from user where age = 23 and (name like "%李%" or note like "%李%") order by age asc, name desc limit 0, 10`
