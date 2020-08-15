@@ -1,13 +1,14 @@
 import lombok.*;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 条件查询（新版模板）
+ * 条件查询
  *
- * @author minsheng.cai
+ * @author 凉衫薄
  */
 @Getter
 @Setter
@@ -32,6 +33,10 @@ public class QueryWrapper {
      */
     private Map<String, Object> eqWrapper;
     /**
+     * 不相等条件
+     */
+    private Map<String, Object> neqWrapper;
+    /**
      * 模糊查询条件
      */
     private Map<String, List<String>> keyWrapper;
@@ -47,14 +52,16 @@ public class QueryWrapper {
 
         private Integer limit;
         private Integer offset;
-        private Map<String, String> sortWrapper;
-        private Map<String, Object> eqWrapper;
-        private Map<String, List<String>> keyWrapper;
-        private Map<String, Object> upWrapper;
+        private final Map<String, String> sortWrapper;
+        private final Map<String, Object> eqWrapper;
+        private final Map<String, Object> neqWrapper;
+        private final Map<String, List<String>> keyWrapper;
+        private final Map<String, Object> upWrapper;
 
         public QueryWrapperBuilder() {
             sortWrapper = new LinkedHashMap<>();
             eqWrapper = new HashMap<>();
+            neqWrapper = new HashMap<>();
             keyWrapper = new HashMap<>();
             upWrapper = new HashMap<>();
         }
@@ -83,6 +90,32 @@ public class QueryWrapper {
          */
         public synchronized QueryWrapperBuilder eq(String column, Object value) {
             return eq(true, column, value);
+        }
+
+        /**
+         * 添加字段eq条件
+         *
+         * @param condition 条件
+         * @param column    字段名
+         * @param value     值
+         * @return 返回建造者对象
+         */
+        public synchronized QueryWrapperBuilder neq(Boolean condition, String column, Object value) {
+            if (condition) {
+                neqWrapper.put(column, value);
+            }
+            return this;
+        }
+
+        /**
+         * 添加字段eq条件
+         *
+         * @param column 字段名
+         * @param value  值
+         * @return 返回建造者对象
+         */
+        public synchronized QueryWrapperBuilder neq(String column, Object value) {
+            return neq(true, column, value);
         }
 
         /**
@@ -190,11 +223,11 @@ public class QueryWrapper {
          * 自定义排序
          *
          * @param column 排序字段
-         * @param sort   排序方式
+         * @param order  排序方式
          * @return 返回建造者对象
          */
-        public synchronized QueryWrapperBuilder sort(String column, String sort) {
-            return sort(true, column, sort);
+        public synchronized QueryWrapperBuilder sort(String column, String order) {
+            return sort(true, column, order);
         }
 
         /**
@@ -202,12 +235,12 @@ public class QueryWrapper {
          *
          * @param condition 条件
          * @param column    排序字段
-         * @param sort      排序方式
+         * @param order     排序方式
          * @return 返回建造者对象
          */
-        public synchronized QueryWrapperBuilder sort(Boolean condition, String column, String sort) {
+        public synchronized QueryWrapperBuilder sort(Boolean condition, String column, String order) {
             if (condition) {
-                sortWrapper.put(column, sort);
+                sortWrapper.put(column, order);
             }
             return this;
         }
@@ -220,7 +253,7 @@ public class QueryWrapper {
          * @param value     需要更新的值
          * @return 返回建造者对象
          */
-        public synchronized QueryWrapperBuilder update(Boolean condition, String column, String value) {
+        public synchronized QueryWrapperBuilder update(Boolean condition, String column, Object value) {
             if (condition) {
                 upWrapper.put(column, value);
             }
@@ -234,7 +267,7 @@ public class QueryWrapper {
          * @param value  需要更新的值
          * @return 返回建造者对象
          */
-        public synchronized QueryWrapperBuilder update(String column, String value) {
+        public synchronized QueryWrapperBuilder update(String column, Object value) {
             return update(true, column, value);
         }
 
@@ -244,7 +277,8 @@ public class QueryWrapper {
          * @return 返回ConditionRequest对象
          */
         public QueryWrapper build() {
-            return new QueryWrapper(limit, offset, sortWrapper, eqWrapper, keyWrapper, upWrapper);
+            return new QueryWrapper(limit, offset, sortWrapper, eqWrapper, neqWrapper, keyWrapper, upWrapper);
         }
     }
 }
+

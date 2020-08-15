@@ -45,6 +45,19 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
                     </foreach>
                 </if>
             </if>
+            <if test="neqWrapper != null">
+#foreach($column in $tableInfo.fullColumn)
+                <if test="neqWrapper.$!column.name != null">
+                    and `$!column.obj.name` != #{neqWrapper.$!column.name}
+                </if>
+#end
+                <if test="neqWrapper.ids != null and neqWrapper.ids.size() > 0">
+                    and `id` not in
+                    <foreach collection="neqWrapper.ids" item="id" open="(" separator="," close=")">
+                        #{id}
+                    </foreach>
+                </if>
+            </if>
             <if test="keyWrapper != null and keyWrapper.size() > 0">
                 <foreach collection="keyWrapper.entrySet()" index="k" item="columns">
                     <if test="columns != null and columns.size()> 0">
