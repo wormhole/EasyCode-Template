@@ -8,7 +8,7 @@ $!callback.setSavePath($tool.append($tableInfo.savePath, "/dao"))
 
 import $!{tableInfo.savePackageName}.model.entity.$!{tableInfo.name};
 import net.stackoverflow.cms.common.QueryWrapper;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
  * @author $!author
  * @since $!time.currTime()
  */
-@Mapper
+@Repository
 public interface $!{tableName} {
     
     int countByCondition(QueryWrapper wrapper);

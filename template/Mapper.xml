@@ -38,12 +38,6 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
                     and `$!column.obj.name` = #{eqWrapper.$!column.name}
                 </if>
 #end
-                <if test="eqWrapper.ids != null and eqWrapper.ids.size() > 0">
-                    and `id` in
-                    <foreach collection="eqWrapper.ids" item="id" open="(" separator="," close=")">
-                        #{id}
-                    </foreach>
-                </if>
             </if>
             <if test="neqWrapper != null">
 #foreach($column in $tableInfo.fullColumn)
@@ -51,12 +45,26 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
                     and `$!column.obj.name` != #{neqWrapper.$!column.name}
                 </if>
 #end
-                <if test="neqWrapper.ids != null and neqWrapper.ids.size() > 0">
-                    and `id` not in
-                    <foreach collection="neqWrapper.ids" item="id" open="(" separator="," close=")">
-                        #{id}
+            </if>
+            <if test="inWrapper != null">
+#foreach($column in $tableInfo.fullColumn)
+                <if test="inWrapper.$!column.name != null and inWrapper.$!{column.name}.size() > 0">
+                    and `$!column.obj.name` in
+                    <foreach collection="inWrapper.$!column.name" item="$!column.name" open="(" separator="," close=")">
+                        #{$!column.name}
                     </foreach>
                 </if>
+#end
+            </if>
+            <if test="ninWrapper != null">
+#foreach($column in $tableInfo.fullColumn)
+                <if test="ninWrapper.$!column.name != null and ninWrapper.$!{column.name}.size() > 0">
+                    and `$!column.obj.name` not in
+                    <foreach collection="ninWrapper.$!column.name" item="$!column.name" open="(" separator="," close=")">
+                        #{$!column.name}
+                    </foreach>
+                </if>
+#end
             </if>
             <if test="keyWrapper != null and keyWrapper.size() > 0">
                 <foreach collection="keyWrapper.entrySet()" index="k" item="columns">
@@ -165,5 +173,4 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         </set>
         <include refid="where"/>
     </update>
-
 </mapper>

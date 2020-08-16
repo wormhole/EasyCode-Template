@@ -1,9 +1,8 @@
+package net.stackoverflow.cms.common;
+
 import lombok.*;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 条件查询
@@ -37,6 +36,14 @@ public class QueryWrapper {
      */
     private Map<String, Object> neqWrapper;
     /**
+     * in条件
+     */
+    private Map<String, List<Object>> inWrapper;
+    /**
+     * not in条件
+     */
+    private Map<String, List<Object>> ninWrapper;
+    /**
      * 模糊查询条件
      */
     private Map<String, List<String>> keyWrapper;
@@ -44,6 +51,10 @@ public class QueryWrapper {
      * 更新字段
      */
     private Map<String, Object> upWrapper;
+
+    public static QueryWrapperBuilder newBuilder() {
+        return new QueryWrapperBuilder();
+    }
 
     /**
      * QueryWrapperBuilder 建造者
@@ -55,6 +66,8 @@ public class QueryWrapper {
         private final Map<String, String> sortWrapper;
         private final Map<String, Object> eqWrapper;
         private final Map<String, Object> neqWrapper;
+        private final Map<String, List<Object>> inWrapper;
+        private final Map<String, List<Object>> ninWrapper;
         private final Map<String, List<String>> keyWrapper;
         private final Map<String, Object> upWrapper;
 
@@ -62,6 +75,8 @@ public class QueryWrapper {
             sortWrapper = new LinkedHashMap<>();
             eqWrapper = new HashMap<>();
             neqWrapper = new HashMap<>();
+            inWrapper = new HashMap<>();
+            ninWrapper = new HashMap<>();
             keyWrapper = new HashMap<>();
             upWrapper = new HashMap<>();
         }
@@ -116,6 +131,58 @@ public class QueryWrapper {
          */
         public synchronized QueryWrapperBuilder neq(String column, Object value) {
             return neq(true, column, value);
+        }
+
+        /**
+         * 添加字段in条件
+         *
+         * @param condition 条件
+         * @param column    字段名
+         * @param value     值
+         * @return 返回建造者对象
+         */
+        public synchronized QueryWrapperBuilder in(Boolean condition, String column, Object[] value) {
+            if (condition) {
+                inWrapper.put(column, Arrays.asList(value));
+            }
+            return this;
+        }
+
+        /**
+         * 添加字段in条件
+         *
+         * @param column 字段名
+         * @param value  值
+         * @return 返回建造者对象
+         */
+        public synchronized QueryWrapperBuilder in(String column, Object[] value) {
+            return in(true, column, value);
+        }
+
+        /**
+         * 添加字段not in条件
+         *
+         * @param condition 条件
+         * @param column    字段名
+         * @param value     值
+         * @return 返回建造者对象
+         */
+        public synchronized QueryWrapperBuilder notIn(Boolean condition, String column, Object[] value) {
+            if (condition) {
+                ninWrapper.put(column, Arrays.asList(value));
+            }
+            return this;
+        }
+
+        /**
+         * 添加字段not in条件
+         *
+         * @param column 字段名
+         * @param value  值
+         * @return 返回建造者对象
+         */
+        public synchronized QueryWrapperBuilder notIn(String column, Object[] value) {
+            return notIn(true, column, value);
         }
 
         /**
@@ -277,7 +344,7 @@ public class QueryWrapper {
          * @return 返回ConditionRequest对象
          */
         public QueryWrapper build() {
-            return new QueryWrapper(limit, offset, sortWrapper, eqWrapper, neqWrapper, keyWrapper, upWrapper);
+            return new QueryWrapper(limit, offset, sortWrapper, eqWrapper, neqWrapper, inWrapper, ninWrapper, keyWrapper, upWrapper);
         }
     }
 }
