@@ -34,34 +34,34 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         <where>
             <if test="eqWrapper != null">
 #foreach($column in $tableInfo.fullColumn)
-                <if test="eqWrapper.$!column.name != null">
-                    and `$!column.obj.name` = #{eqWrapper.$!column.name}
+                <if test="eqWrapper.$!column.obj.name != null">
+                    and `$!column.obj.name` = #{eqWrapper.$!column.obj.name}
                 </if>
 #end
             </if>
             <if test="neqWrapper != null">
 #foreach($column in $tableInfo.fullColumn)
-                <if test="neqWrapper.$!column.name != null">
-                    and `$!column.obj.name` != #{neqWrapper.$!column.name}
+                <if test="neqWrapper.$!column.obj.name != null">
+                    and `$!column.obj.name` != #{neqWrapper.$!column.obj.name}
                 </if>
 #end
             </if>
             <if test="inWrapper != null">
 #foreach($column in $tableInfo.fullColumn)
-                <if test="inWrapper.$!column.name != null and inWrapper.$!{column.name}.size() > 0">
+                <if test="inWrapper.$!column.obj.name != null and inWrapper.$!{column.obj.name}.size() > 0">
                     and `$!column.obj.name` in
-                    <foreach collection="inWrapper.$!column.name" item="$!column.name" open="(" separator="," close=")">
-                        #{$!column.name}
+                    <foreach collection="inWrapper.$!column.obj.name" item="$!column.obj.name" open="(" separator="," close=")">
+                        #{$!column.obj.name}
                     </foreach>
                 </if>
 #end
             </if>
             <if test="ninWrapper != null">
 #foreach($column in $tableInfo.fullColumn)
-                <if test="ninWrapper.$!column.name != null and ninWrapper.$!{column.name}.size() > 0">
+                <if test="ninWrapper.$!column.obj.name != null and ninWrapper.$!{column.obj.name}.size() > 0">
                     and `$!column.obj.name` not in
-                    <foreach collection="ninWrapper.$!column.name" item="$!column.name" open="(" separator="," close=")">
-                        #{$!column.name}
+                    <foreach collection="ninWrapper.$!column.obj.name" item="$!column.obj.name" open="(" separator="," close=")">
+                        #{$!column.obj.name}
                     </foreach>
                 </if>
 #end
@@ -165,8 +165,8 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         <set>
             <if test="upWrapper != null">
 #foreach($column in $tableInfo.fullColumn)
-                <if test="upWrapper.$!column.name != null">
-                    `$!column.obj.name` = #{upWrapper.$!column.name},
+                <if test="upWrapper.$!column.obj.name != null">
+                    `$!column.obj.name` = #{upWrapper.$!column.obj.name},
                 </if>
 #end
             </if>
