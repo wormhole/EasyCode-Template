@@ -33,45 +33,45 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
     <sql id="where">
         <where>
             <if test="eqWrapper != null">
-#foreach($column in $tableInfo.fullColumn)
-                <if test="eqWrapper.$!column.obj.name != null">
-                    and `$!column.obj.name` = #{eqWrapper.$!column.obj.name}
-                </if>
-#end
+                <foreach collection="eqWrapper.entrySet()" index="column" item="value">
+                    <if test="column != null and value != null">
+                        and `${column}` = #{value}
+                    </if>
+                </foreach>
             </if>
             <if test="neqWrapper != null">
-#foreach($column in $tableInfo.fullColumn)
-                <if test="neqWrapper.$!column.obj.name != null">
-                    and `$!column.obj.name` != #{neqWrapper.$!column.obj.name}
-                </if>
-#end
+                <foreach collection="neqWrapper.entrySet()" index="column" item="value">
+                    <if test="column != null and value != null">
+                        and `${column}` != #{value}
+                    </if>
+                </foreach>
             </if>
             <if test="inWrapper != null">
-#foreach($column in $tableInfo.fullColumn)
-                <if test="inWrapper.$!column.obj.name != null and inWrapper.$!{column.obj.name}.size() > 0">
-                    and `$!column.obj.name` in
-                    <foreach collection="inWrapper.$!column.obj.name" item="$!column.obj.name" open="(" separator="," close=")">
-                        #{$!column.obj.name}
-                    </foreach>
-                </if>
-#end
+                <foreach collection="inWrapper.entrySet()" index="column" item="values">
+                    <if test="values != null and values.size() > 0">
+                        and `${column}` in
+                        <foreach collection="values" item="value" open="(" separator="," close=")">
+                            #{value}
+                        </foreach>
+                    </if>
+                </foreach>
             </if>
             <if test="ninWrapper != null">
-#foreach($column in $tableInfo.fullColumn)
-                <if test="ninWrapper.$!column.obj.name != null and ninWrapper.$!{column.obj.name}.size() > 0">
-                    and `$!column.obj.name` not in
-                    <foreach collection="ninWrapper.$!column.obj.name" item="$!column.obj.name" open="(" separator="," close=")">
-                        #{$!column.obj.name}
-                    </foreach>
-                </if>
-#end
+                <foreach collection="ninWrapper.entrySet()" index="column" item="values">
+                    <if test="values != null and values.size() > 0">
+                        and `${column}` not in
+                        <foreach collection="values" item="value" open="(" separator="," close=")">
+                            #{value}
+                        </foreach>
+                    </if>
+                </foreach>
             </if>
             <if test="keyWrapper != null and keyWrapper.size() > 0">
-                <foreach collection="keyWrapper.entrySet()" index="k" item="columns">
-                    <if test="columns != null and columns.size()> 0">
+                <foreach collection="keyWrapper.entrySet()" index="key" item="columns">
+                    <if test="columns != null and columns.size() > 0">
                         and
                         <foreach collection="columns" item="column" open="(" separator=" or " close=")">
-                            `${column}` like CONCAT('%',#{k},'%')
+                            `${column}` like CONCAT('%',#{key},'%')
                         </foreach>
                     </if>
                 </foreach>
