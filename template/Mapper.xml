@@ -15,21 +15,6 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
 #end
     </resultMap>
     
-    <sql id="columns">
-        #foreach($column in $tableInfo.fullColumn)`$!column.obj.name`#if($velocityHasNext), #end#end
-        
-    </sql>
-
-    <sql id="columns_value">
-        #foreach($column in $tableInfo.fullColumn)#{$!{column.name}}#if($velocityHasNext), #end#end
-        
-    </sql>
-
-    <sql id="columns_item_value">
-        #foreach($column in $tableInfo.fullColumn)#{item.$!{column.name}}#if($velocityHasNext), #end#end
-        
-    </sql>
-    
     <sql id="where">
         <where>
             <if test="eqWrapper != null">
@@ -93,8 +78,8 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         <include refid="where"/>
         <if test="sortWrapper != null and sortWrapper.size() > 0">
             order by
-            <foreach collection="sortWrapper.entrySet()" index="k" item="v" separator=",">
-                `${k}` ${v}
+            <foreach collection="sortWrapper.entrySet()" index="s" item="o" separator=",">
+                `${s}` ${o}
             </foreach>
         </if>
         <if test="offset != null and limit != null">
@@ -104,17 +89,17 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
 
     <insert id="insert">
         insert into `$!{tableInfo.obj.name}`
-        (<include refid="columns"/>)
+        (#foreach($column in $tableInfo.fullColumn)`$!column.obj.name`#if($velocityHasNext), #end#end)
         values
-        (<include refid="columns_value"/>)
+        (#foreach($column in $tableInfo.fullColumn)#{$!{column.name}}#if($velocityHasNext), #end#end)
     </insert>
 
     <insert id="batchInsert" parameterType="list">
         insert into `$!{tableInfo.obj.name}`
-        (<include refid="columns"/>)
+        (#foreach($column in $tableInfo.fullColumn)`$!column.obj.name`#if($velocityHasNext), #end#end)
         values
         <foreach collection="list" item="item" separator=",">
-            (<include refid="columns_item_value"/>)
+            (#foreach($column in $tableInfo.fullColumn)#{item.$!{column.name}}#if($velocityHasNext), #end#end)
         </foreach>
     </insert>
 
