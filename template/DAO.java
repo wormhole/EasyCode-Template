@@ -49,7 +49,7 @@ public interface $!{tableName} {
     /**
      * 新增
      *
-     * @param permission
+     * @param $!{tableInfo.name}
      * @return
      */
     int insert($!{tableInfo.name} $!tool.firstLowerCase($!{tableInfo.name}));
@@ -57,7 +57,7 @@ public interface $!{tableName} {
     /**
      * 批量新增
      *
-     * @param permissions
+     * @param $!{tableInfo.name}s
      * @return
      */
     int batchInsert(List<$!{tableInfo.name}> $!tool.firstLowerCase($!{tableInfo.name})s);
@@ -89,7 +89,7 @@ public interface $!{tableName} {
     /**
      * 更新
      *
-     * @param permission
+     * @param $!{tableInfo.name}
      * @return
      */
     int update($!{tableInfo.name} $!tool.firstLowerCase($!{tableInfo.name}));
@@ -97,7 +97,7 @@ public interface $!{tableName} {
     /**
      * 批量更新
      *
-     * @param permissions
+     * @param $!{tableInfo.name}s
      * @return
      */
     int batchUpdate(List<$!{tableInfo.name}> $!tool.firstLowerCase($!{tableInfo.name})s);
