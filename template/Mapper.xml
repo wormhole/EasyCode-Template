@@ -64,7 +64,7 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         </where>
     </sql>
     
-    <select id="countByCondition" resultType="int">
+    <select id="queryCount" resultType="int">
         select COUNT(*) from `$!{tableInfo.obj.name}`
         <include refid="where"/>
     </select>
@@ -73,7 +73,7 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         select * from `$!{tableInfo.obj.name}` where `id` = #{id}
     </select>
     
-    <select id="selectByCondition" resultMap="baseMap">
+    <select id="querySelect" resultMap="baseMap">
         select * from `$!{tableInfo.obj.name}`
         <include refid="where"/>
         <if test="sortWrapper != null and sortWrapper.size() > 0">
@@ -114,7 +114,7 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         </foreach>
     </delete>
     
-    <delete id="deleteByCondition">
+    <delete id="queryDelete">
         delete from `$!{tableInfo.obj.name}`
         <include refid="where"/>
     </delete>
@@ -145,7 +145,7 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         </foreach>
     </update>
     
-    <update id="updateByCondition">
+    <update id="queryUpdate">
         update `$!{tableInfo.obj.name}`
         <set>
             <if test="upWrapper != null">
