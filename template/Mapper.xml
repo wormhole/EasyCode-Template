@@ -152,10 +152,10 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
     <update id="updateWithQuery">
         update `$!{tableInfo.obj.name}`
         <set>
-            <if test="upWrapper != null">
+            <if test="setWrapper != null">
 #foreach($column in $tableInfo.fullColumn)
-                <if test="upWrapper.$!column.obj.name != null">
-                    `$!column.obj.name` = #{upWrapper.$!column.obj.name},
+                <if test="setWrapper.$!column.obj.name != null">
+                    `$!column.obj.name` = #{setWrapper.$!column.obj.name},
                 </if>
 #end
             </if>
