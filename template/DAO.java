@@ -43,7 +43,7 @@ public interface $!{tableName} {
      *
      * @return
      */
-    $!{tableInfo.name} selectAll();
+    List<$!{tableInfo.name}> selectAll();
     
     /**
      * 条件查询
