@@ -28,7 +28,7 @@ public interface $!{tableName} {
      * @param wrapper
      * @return
      */
-    int queryCount(QueryWrapper wrapper);
+    int count(QueryWrapper wrapper);
 
     /**
      * 根据id查询
@@ -39,12 +39,19 @@ public interface $!{tableName} {
     $!{tableInfo.name} select(String id);
     
     /**
+     * 查询所有
+     *
+     * @return
+     */
+    $!{tableInfo.name} selectAll();
+    
+    /**
      * 条件查询
      *
      * @param wrapper
      * @return
      */
-    List<$!{tableInfo.name}> querySelect(QueryWrapper wrapper);
+    List<$!{tableInfo.name}> selectWithQuery(QueryWrapper wrapper);
 
     /**
      * 新增
@@ -84,7 +91,7 @@ public interface $!{tableName} {
      * @param wrapper
      * @return
      */
-    int queryDelete(QueryWrapper wrapper);
+    int deleteWithQuery(QueryWrapper wrapper);
 
     /**
      * 更新
@@ -108,5 +115,5 @@ public interface $!{tableName} {
      * @param wrapper
      * @return
      */
-    int queryUpdate(QueryWrapper wrapper);
+    int updateWithQuery(QueryWrapper wrapper);
 }
