@@ -28,7 +28,7 @@ public interface $!{tableName} {
      * @param wrapper
      * @return
      */
-    int count(QueryWrapper wrapper);
+    int countWithQuery(QueryWrapper wrapper);
 
     /**
      * 根据id查询

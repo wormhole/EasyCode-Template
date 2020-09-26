@@ -64,7 +64,7 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
         </where>
     </sql>
     
-    <select id="count" resultType="int">
+    <select id="countWithQuery" resultType="int">
         select COUNT(*) from `$!{tableInfo.obj.name}`
         <include refid="where"/>
     </select>
