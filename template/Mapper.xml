@@ -87,7 +87,7 @@ $!callback.setSavePath($tool.append($modulePath, "/src/main/resources/mapper"))
             </foreach>
         </if>
         <if test="offset != null and limit != null">
-            limit ${offset}, ${limit}
+            limit #{offset}, #{limit}
         </if>
     </select>
 

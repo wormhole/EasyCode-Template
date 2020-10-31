@@ -7,7 +7,7 @@ $!callback.setSavePath($tool.append($tableInfo.savePath, "/dao"))
 #if($tableInfo.savePackageName)package $!{tableInfo.savePackageName}.#{end}dao;
 
 import $!{tableInfo.savePackageName}.model.entity.$!{tableInfo.name};
-import net.stackoverflow.cms.common.QueryWrapper;
+import $!{tableInfo.savePackageName}.common.QueryWrapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
